@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
 function ProfileOrder() {
-  const { token, user } = useAuth();
+  const { token } = useAuth();
   const [form, setForm] = useState({
     Фирма: '',
     ВидКонтрагента: '',
@@ -34,10 +34,10 @@ function ProfileOrder() {
           setForm({
             Фирма: currentUser['Фирма'] || '',
             ВидКонтрагента: currentUser['ВидКонтрагента'] || '',
-            Наименование: currentUser['Наименование'] || '',
+            "Ф.И.О Контрагента": currentUser['Наименование'] || '',
             Адрес: currentUser['Адрес'] || '',
             Телефон: currentUser['Телефон'] || '',
-            МенеджерКонтрагента: currentUser['МенеджерКонтрагента'] || ''
+            "Торговый Представитель": currentUser['МенеджерКонтрагента'] || ''
           });
         } else {
           console.warn('Пользователь не найден');
@@ -58,27 +58,8 @@ function ProfileOrder() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    axios
-      .put(
-        `http://api.dustipharma.tj:1212/api/v1/app/admin/users/${user.id}`,
-        {
-          role: 'client',
-          user_id: user.id
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      )
-      .then(() => {
-        alert('Роль пользователя успешно обновлена');
-      })
-      .catch((err) => {
-        console.error('Ошибка при обновлении роли:', err);
-        alert('Ошибка при сохранении изменений');
-      });
+    // Здесь можно добавить логику сохранения если потребуется в будущем
+    alert('Форма отправлена, но логика сохранения пока не реализована');
   };
 
   if (isLoading) {
